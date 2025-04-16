@@ -8,33 +8,36 @@ import { IProduct } from './product.model';
 })
 export class CatalogComponent {
 
-
   filter: string = '';
 
+  getDiscountedClasses(product: IProduct) {
+    return product.discount > 0 ? ["strikethrough bold"] : [];
+  }
+
   getDiscountedPrice(product: IProduct): number {
-    return product.price * .5 ;
+    return product.price * .5;
   }
 
   hasDiscount(product: IProduct): boolean {
     return product.discount > 0;
   }
-  
-  getFilteredProducts(): IProduct[] {
-    console.log("Filtered on value: "+ this.filter);
 
-    return this.filter === '' ? this.products: this.products.filter(product => product.category === this.filter);
-    
+  getFilteredProducts(): IProduct[] {
+    console.log("Filtered on value: " + this.filter);
+
+    return this.filter === '' ? this.products : this.products.filter(product => product.category === this.filter);
+
   }
 
   getImageUrl(product: IProduct) {
-    return 'assets/images/robot-parts/'+product?.imageName;
+    return 'assets/images/robot-parts/' + product?.imageName;
   }
 
   products: IProduct[];
 
-  constructor(){
+  constructor() {
     this.products = [{
-      id:1,
+      id: 1,
       description: "Red army favourite",
       name: "AK Arm",
       imageName: "arm-ak.png",
