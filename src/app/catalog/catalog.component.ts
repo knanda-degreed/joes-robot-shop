@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { IProduct } from './product.model';
 import { CartService } from '../cart.service';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'kbot-catalog',
@@ -10,14 +11,25 @@ import { CartService } from '../cart.service';
 export class CatalogComponent {
 
   filter: string = '';
-  products: IProduct[];
+  products: IProduct[] = [];
 
   // expermenting with inject function
   //private cartSvc: CartService = inject(CartService);
 
 
   // constructor injection
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, private productService: ProductService) {
+    console.log("CatalogComponent constructor called");
+  }
+
+  ngOnInit() {
+    let observableProducts = this.productService.getProducts();
+
+    observableProducts.subscribe({
+      next: (products) => this.products = products,
+      error: (err) => console.log("Error loading products: " + err),
+      complete: () => console.log("Products loaded")
+    });
   }
 
   getDiscountedClasses(product: IProduct) {

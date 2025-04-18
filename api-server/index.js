@@ -50,7 +50,7 @@ app.get("/api/products", (req, res) => {
   },
   {
     id: 3,
-    name: "Not from Musk",
+    name: "Not from Elon Musk",
     description: "Robot arm with a Flamethrower",
     imageName: "arm-flamethrower.png",
     category: "Arms",
